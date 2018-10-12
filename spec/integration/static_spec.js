@@ -25,9 +25,9 @@ describe("routes : static", () => {
         expect(res.statusCode).toBe(200);
         expect(body).toContain("About Us");
 
-        done();
+        //done();
       });
     });
   });
-  
+
 });
