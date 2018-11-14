@@ -4,6 +4,7 @@ module.exports = {
   },
 
   about(req, res, next) {
+
     res.render("static/about", {h1: "About Us"});
   }
 }
