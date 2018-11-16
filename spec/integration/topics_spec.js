@@ -16,6 +16,7 @@ describe("routes : topics", () => {
       })
       .then((topic) => {
         this.topic = topic;
+        console.log(topic)
         done();
       })
       .catch((err) => {
