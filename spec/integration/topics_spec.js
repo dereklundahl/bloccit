@@ -16,7 +16,6 @@ describe("routes : topics", () => {
       })
       .then((topic) => {
         this.topic = topic;
-        console.log(topic)
         done();
       })
       .catch((err) => {
@@ -41,4 +40,16 @@ describe("routes : topics", () => {
     });
 
   });
+
+  describe("GET /topics/new", () => {
+
+    it("should render a new topic form", (done) => {
+      request.get(`${base}new`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("New Topic");
+        done();
+      });
+    });
+  });
+  
 });
