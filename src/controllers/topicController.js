@@ -20,7 +20,7 @@ module.exports = {
   create(req, res, next){
     let newTopic = {
       title: req.body.title,
-      descripton: req.body.description
+      description: req.body.description
     };
     topicQueries.addTopic(newTopic, (err, topic) => {
       if(err){
