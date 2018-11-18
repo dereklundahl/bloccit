@@ -16,7 +16,7 @@ module.exports = {
     addTopic(newTopic, callback){
         return Topic.create({
             title: newTopic.title,
-            description: newTopic.descrption
+            description: newTopic.description
         })
         .then((topic) => {
             callback(null, topic);
