@@ -3,12 +3,12 @@ module.exports = (sequelize, DataTypes) => {
   var Rules = sequelize.define('Rules', {
     description: DataTypes.STRING,
     topicId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       onDelete: "CASCADE",
       references: {
         model: "Topic",
         key: "id",
-        as: "topicId"
+        as: "topicId",
       }
     }
   }, {});
