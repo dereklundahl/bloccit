@@ -6,7 +6,7 @@ module.exports = {
     advertisementQueries.getAllAdvertisements((err, advertisements) => {
 
       if(err){
-        console.log(err);
+        console.log(`this is the error: ${err}`);
         res.redirect(500, "static/index");
       } else {
         res.render("advertisements/index", {advertisements});
@@ -39,7 +39,7 @@ module.exports = {
       if(err || advertisement == null){
         res.redirect(404, "/");
       } else {
-        res.render("advertisement/show", {advertisement});
+        res.render("advertisements/show", {advertisement});
       }
     });
   },

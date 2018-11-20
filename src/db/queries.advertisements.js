@@ -13,7 +13,7 @@ module.exports = {
         })
     },
 
-    getAdvertisment(id, callback){
+    getAdvertisement(id, callback){
         return Advertisement.findById(id)
         .then((advertisement) => {
             callback(null, advertisement);
