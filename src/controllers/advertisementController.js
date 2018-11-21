@@ -6,7 +6,6 @@ module.exports = {
     advertisementQueries.getAllAdvertisements((err, advertisements) => {
 
       if(err){
-        console.log(`this is the error: ${err}`);
         res.redirect(500, "static/index");
       } else {
         res.render("advertisements/index", {advertisements});
