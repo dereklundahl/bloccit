@@ -52,7 +52,7 @@ describe("Topic", () => {
                 title: "Mountain Biking"
             })
             .then((topic) => {
-                //this.topic = topic;
+                this.topic = topic;
                 done();
             })
             .catch((err) => {
@@ -65,7 +65,7 @@ describe("Topic", () => {
     describe("#getPost()", () => {
         it("should return an array of posts associated with a specific topic", (done) => {
             console.log(typeof(this.topic.getPost));
-            this.topic.getPost()
+            this.topic.getPosts()
             .then((associatedPosts) => {
                 expect(associatedPosts[0].title).toBe("Colorado Front Range");
                 expect(associatedPosts[0].topicId).toBe(this.topic.id);

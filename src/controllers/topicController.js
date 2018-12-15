@@ -4,7 +4,6 @@ module.exports = {
   index(req, res, next) {
     
     topicQueries.getAllTopics((err, topics) => {
-      console.log("test");
       if(err){
         res.redirect(500, "static/index");
       } else {
@@ -34,17 +33,9 @@ module.exports = {
   show(req, res, next){
 
     topicQueries.getTopic(req.params.id, (err, topic) => {
-      console.log("Helllllp!")
       if(err || topic == null){
-        console.log(`this is: ${req.params.id}`);
-        console.log(topic);
-        console.log(err);
         res.redirect(404, "/");
       } else {
-        console.log(`this is: ${req.params.id}`);
-        console.log(topic);
-        console.log(err);
-
         res.render("topics/show", {topic});
       }
     });
