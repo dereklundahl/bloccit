@@ -51,7 +51,7 @@ describe("routes : post", () => {
         });
 
     });
-    //THis is the one that is failing!!!!!!!!!!!!!
+    
     describe("POST /topics/:topicId/posts/create", () => {
 
         it("should create a new post and redirect", (done) => {
@@ -79,6 +79,21 @@ describe("routes : post", () => {
                     });
                 }
             );
+        });
+    });
+
+    describe("GET /topics/:topicId/posts/:id", () => {
+
+        it("should render a view with the selected post", (done) => {
+            console.log(`topic id: ${this.topic.id}`);
+            console.log(`post id: ${this.post.id}`);
+            console.log(`base is: ${base}`);
+            console.log(`${base}/${this.topic.id}/posts/${this.post.id}`)
+    
+            request.get(`${base}/${this.topic.id}/posts/${this.post.id}`, (err, res, body) => {
+                expect(err).toBeNull();
+                expect(body).toContain("Snowball Fighting");
+            });
         });
     });
 
