@@ -51,7 +51,7 @@ describe("routes : post", () => {
         });
 
     });
-
+    //THis is the one that is failing!!!!!!!!!!!!!
     describe("POST /topics/:topicId/posts/create", () => {
 
         it("should create a new post and redirect", (done) => {
@@ -59,7 +59,7 @@ describe("routes : post", () => {
                 url: `${base}/${this.topic.id}/posts/create`,
                 form: {
                     title: "Watching snow melt",
-                    body: "Without a doubt my favoriteing things to do besides watching paint dry!"
+                    body: "Without a doubt my favoriting things to do besides watching paint dry!"
                 }
             };
             request.post(options,
