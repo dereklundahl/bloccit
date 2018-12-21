@@ -20,7 +20,6 @@ describe("Flair", () => {
                 Flair.create({
                     name: "Science and Tech",
                     color: "blue",
-
                     topicId: this.topic.id
                 })
                 .then((flair) => {
