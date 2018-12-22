@@ -170,7 +170,8 @@ describe("routes : post", () => {
             const options = {
                 url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
                 form: {
-                    title: "Snowman Building Competition"
+                    title: "Snow peeps",
+                    body: "I love watching them melt slowly."
                 }
             };
             request.post(options,
@@ -182,7 +183,7 @@ describe("routes : post", () => {
                         where: {id: this.post.id}
                     })
                     .then((post) => {
-                        expect(post.title).toBe("Snowman Building Competition");
+                        expect(post.title).toBe("Snow peeps");
                         done();
                     });
                 });
