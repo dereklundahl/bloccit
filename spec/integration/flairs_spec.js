@@ -102,4 +102,34 @@ describe("routes : flairs", () => {
         });
     });
 
+    describe("POST /topics/:topicId/flairs/:id/destroy", () => {
+
+        it("should delete the flair with the associated Id", (done) => {
+
+            expect(this.flair.id).toBe(1);
+
+            request.post(`${base}/${this.topic.id}/flairs/${this.flair.id}/destroy`, (err, res, body) => {
+
+                Flair.findById(1)
+                .then((flair) => {
+                    expect(err).toBeNull();
+                    expect(flair).toBeNull();
+                    done();
+                })
+            });
+        });
+    });
+
+    describe("GET /topics/:topicId/flairs/:id/edit", () => {
+
+        it("should render a view with an edit post form", (done) => {
+            request.get(`${base}/${this.topic.id}/flairs/${this.flair.id}/edit`, (err, res, body) => {
+                expect(err).toBeNull();
+                expect(body).toContain("Edit Flair");
+                expect(body).toContain("red, white, and blue");
+                done();
+            });
+        });
+    });
+
 });
