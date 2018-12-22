@@ -136,9 +136,6 @@ describe("routes : topics", () => {
   describe("POST /topics/:id/update", () => {
 
     it("should update the topic with the given values", (done) => {
-      console.log(`this is the base: ${base}`);
-      console.log(`this is the topic id: ${this.topic.id}`);
-      console.log(`this is the topic name: ${this.topic.title}`);
       const options = {
         url: `${base}${this.topic.id}/update`,
         form: {
