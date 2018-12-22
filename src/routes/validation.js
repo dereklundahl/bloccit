@@ -22,7 +22,7 @@ module.exports = {
 
         if(req.method === "POST") {
 
-            req.checkParams("topicId", "must be valid").notEmpty().isInt();
+            //req.checkParams("topicId", "must be valid").notEmpty().isInt();
             req.checkBody("title", "must be at least 5 characters in length").isLength({min: 5});
             req.checkBody("description", "must be at least 10 characters in length").isLength({min: 10});
 
