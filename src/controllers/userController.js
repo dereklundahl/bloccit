@@ -6,6 +6,22 @@ module.exports = {
         res.render("users/sign_up");
     },
 
+    signInForm(req, res, next){
+        res.render("users/sign_in");
+    },
+
+    signIn(req, res, next){
+        passport.authenticate("local")(req, res, function () {
+            if(!req.user){
+                req.flash("notice", "Sign in failed. Please try again.")
+                res.redirect("/users/sign_in");
+            } else {
+                req.flash("notice", "You've successfully signed in!");
+                res.redirect("/");
+            }
+        })
+    },
+
     create(req, res, next) {
 
         let newUser = {
