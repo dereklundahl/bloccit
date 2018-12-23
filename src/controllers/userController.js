@@ -22,6 +22,12 @@ module.exports = {
         })
     },
 
+    signOut(req, res, next){
+        req.logout();
+        req.flash("notic", "You've successfully signed out!");
+        res.redirect("/");
+    },
+
     create(req, res, next) {
 
         let newUser = {
