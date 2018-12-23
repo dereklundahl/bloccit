@@ -1,0 +1,24 @@
+> For this assignment, read more about the different 
+strategies available for authenticating with Passport. 
+Pick a strategy to study and write a high-level 
+explanation of how it works. This explanation does not
+need to be technical.
+
+A: I decided to study the facebook strategy. It seems that
+other than using a direct password creation, that facebook
+is one of the most popular sign in options. Google seems
+fairly popular as well.
+
+The first step in using passport with facebook is to 
+register the application with facebook. When you register
+you will recieve an app Id and an app secret.
+
+Although I have not tried using it yet, the facebook
+strategy seems fairly simple. It uses the secret and Id provided
+when regerstering the app as well as a callback URL
+in the passport.use call. It then uses access and refresh
+tokens to authenticate the user.
+
+In addition to getting the users id, other fields needed
+by the app can be specified in the profileFields property
+in the initial passport.use call.
