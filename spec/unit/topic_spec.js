@@ -1,36 +1,48 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
+const User = require("../../src/db/models").User;
 
 describe("Topic", () => {
     beforeEach((done) => {
         this.topic;
         this.post;
+        this.user;
+
         sequelize.sync({force: true}).then((res) => {
 
-           Topic.create({
-               title: "Hiking Trails",
-               description: "The best day hikes"
-           })
-           .then((topic) => {
-               this.topic = topic;
-               Post.create({
-                   title: "Colorado Front Range",
-                   body: "The best hikes are in the Front Range",
-                   topicId: this.topic.id
-               })
-               .then((post) => {
-                   this.post = post;
-                   done();
-               });
-           }) 
-           .catch((err) => {
-               console.log(err);
-               done();
-           });
+            User.create({
+                email: "starman@tesla.com",
+                password: "Trekkie4lyfe"
+            })
+            .then((user) => {
+                this.user = user;
+
+                Topic.create({
+                    title: "Expeditions to Alpha Centauri",
+                    description: "A compilation of reports of reports from recent visits to the star system.",
+
+                    posts: [{
+                        title: "My first visit to Proxima Centauri b",
+                        body: "I saw some rocks.",
+                        userId: this.user.id
+                    }]
+                }, {
+
+                    include: {
+                        model: Post,
+                        as: "posts"
+                    }
+                })
+                .then((topic) => {
+                    this.topic = topic;
+                    this.post = topic.post[0];
+                    done();
+                })
+            })
         });
     });
-
+           
     describe("#create()", () => {
         it("should create a topic object with a title and description", (done) => {
           Topic.create({
