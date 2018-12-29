@@ -131,7 +131,7 @@ describe("Post", () => {
                 this.post.setUser(newUser)
                 .then((post) => {
 
-                    expect(tis.post.userId).toBe(newUser.id);
+                    expect(this.post.userId).toBe(newUser.id);
                     done();
                 });
             })

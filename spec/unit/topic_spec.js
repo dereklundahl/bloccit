@@ -79,7 +79,7 @@ describe("Topic", () => {
             console.log(typeof(this.topic.getPost));
             this.topic.getPosts()
             .then((associatedPosts) => {
-                expect(associatedPosts[0].title).toBe("Colorado Front Range");
+                expect(associatedPosts[0].title).toBe("My first visit to Proxima Centauri b");
                 expect(associatedPosts[0].topicId).toBe(this.topic.id);
                 done();
             });
