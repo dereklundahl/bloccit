@@ -1,4 +1,4 @@
-module. exports = class ApplicationPolicy {
+module.exports = class ApplicationPolicy {
 
     constructor(user, record) {
         this.user = user;

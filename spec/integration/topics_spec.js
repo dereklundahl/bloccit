@@ -15,8 +15,8 @@ describe("routes : topics", () => {
         title: "JS Frameworks",
         description: "There is a lot of them"
       })
-      .then((res) => {
-        this.topic = res;
+      .then((topic) => {
+        this.topic = topic;
         done();
       })
       .catch((err) => {
@@ -31,14 +31,34 @@ describe("routes : topics", () => {
   describe("admin user performing CRUD actions for Topic", () => {
 
     beforeEach((done) => {
-      request.get({
-        url: "http://localhost:3000/auth/fake",
-        form: {
-          role: "admin"
-        }
+      User.create({
+        email: "admin@example.com",
+        password: "1234567",
+        role: "admin"
+      })
+      .then((user) => {
+        request.get({
+          url: "http://localhost:3000/auth/fake",
+          form: {
+            role: user.role,
+            userId: user.id,
+            email: user.email
+          }
+        },
+          (err, res, body) => {
+            done();
+          }
+        );
       });
-      done();
-    });
+    });    
+      //   request.get({
+    //     url: "http://localhost:3000/auth/fake",
+    //     form: {
+    //       role: "admin"
+    //     }
+    //   });
+    //   done();
+    // });
 
   describe("GET /topics", () => {
 
@@ -64,7 +84,7 @@ describe("routes : topics", () => {
     });
   });
 
-  describe("POST /topics/create" , () => {
+  describe("POST /topics/create", () => {
     const options = {
       url: `${base}create`,
       form: {
@@ -115,6 +135,11 @@ describe("routes : topics", () => {
         const topicCountBeforeDelete = topics.length;
 
         expect(topicCountBeforeDelete).toBe(1);
+
+        console.log(`This is the topic id: ${this.topic.id}
+        this is the topic length: ${topics.length}
+        This is the base ${base}
+        This is the topic: ${this.topic.title}`)
 
         request.post(`${base}${this.topic.id}/destroy`, (err, res, body) => {
           Topic.all()
@@ -176,13 +201,15 @@ describe("routes : topics", () => {
 
     beforeEach((done) => {
       request.get({
-        url: "http//localhost:3000/auth/fake",
+        url: "http://localhost:3000/auth/fake",
         form: {
           role: "member"
         }
       });
       done();
-  });
+    }
+  );
+  
 
     describe("GET /topics", () => {
 

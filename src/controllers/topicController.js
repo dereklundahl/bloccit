@@ -79,7 +79,7 @@ module.exports = {
           res.render("topics/edit", {topic});
         } else {
           req.flash("You are not authorized to do that.")
-          res.redirect(`/topics/${req.parmas.id}`)
+          res.redirect(`/topics/${req.params.id}`)
         }
       }
     });
