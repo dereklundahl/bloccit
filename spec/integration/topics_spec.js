@@ -136,11 +136,6 @@ describe("routes : topics", () => {
 
         expect(topicCountBeforeDelete).toBe(1);
 
-        console.log(`This is the topic id: ${this.topic.id}
-        this is the topic length: ${topics.length}
-        This is the base ${base}
-        This is the topic: ${this.topic.title}`)
-
         request.post(`${base}${this.topic.id}/destroy`, (err, res, body) => {
           Topic.all()
           .then((topics) => {
