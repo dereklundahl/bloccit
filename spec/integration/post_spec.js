@@ -53,8 +53,6 @@ describe("routes : post", () => {
 
       //guest before each
       beforeEach((done) => {
-          //console.log(`THIS IS THE POST TITLE!!!!!!!!!: ${this.post.title}`);
-          //console.log(`this is the post body: ${this.post.body}`);
           request.get({
               url: "http://localhost:3000/auth/fake",
               form: {
@@ -191,14 +189,27 @@ describe("routes : post", () => {
 
         //before each call for member
         beforeEach((done) => {
-            request.get({
-                url: "http://localhost:3000/auth/fake",
-                form: {
-                    role: "member"
+            User.create({
+                email: "member@example.com",
+                password: "123456",
+                role: "member"
+            })
+            .then((user) => {
+                request.get({
+                    url: "http://localhost:3000/auth/fake",
+                    form: {
+                        role: user.role,
+                        userId: user.id,
+                        email: user.email
+                    }
+                },
+                (err, res, body) => {
+                    done();
                 }
-            });
-            done();
+              );
+            })            
         });
+
 
         //member new
         describe("GET /topics/:topicId/posts/new", () => {
@@ -350,13 +361,25 @@ describe("routes : post", () => {
 
         //before each call for owner/admin
         beforeEach((done) => {
-            request.get({
-                url: "http://localhost:3000/auth/fake",
-                form: {
-                    role: "admin"
+            User.create({
+                email: "admin@example.com",
+                password: "123456",
+                role: "admin"
+            })
+            .then((user) => {
+                request.get({
+                    url: "http://localhost:3000/auth/fake",
+                    form: {
+                        role: user.role,
+                        userId: user.id,
+                        email: user.email
+                    }
+                },
+                (err, res, body) => {
+                    done();
                 }
-            });
-            done();
+              );
+            })            
         });
 
         //owner admin new
