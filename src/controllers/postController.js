@@ -43,7 +43,7 @@ module.exports = {
         res.redirect(404, "/");
       } else {
         res.render("posts/show", {post});
-      }   
+      };   
     });
   },
 

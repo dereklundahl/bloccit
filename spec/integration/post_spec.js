@@ -1,7 +1,7 @@
 const request = require("request");
 const server = require("../../src/server");
 const base = "http://localhost:3000/topics";
-const User = require("../../swrc/db/models").User;
+const User = require("../../src/db/models").User;
 
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
@@ -53,6 +53,8 @@ describe("routes : post", () => {
 
       //guest before each
       beforeEach((done) => {
+          //console.log(`THIS IS THE POST TITLE!!!!!!!!!: ${this.post.title}`);
+          //console.log(`this is the post body: ${this.post.body}`);
           request.get({
               url: "http://localhost:3000/auth/fake",
               form: {
@@ -110,6 +112,10 @@ describe("routes : post", () => {
           it("should render a view with the selected post", (done) => {
     
             request.get(`${base}/${this.topic.id}/posts/${this.post.id}`, (err, res, body) => {
+                console.log(`THIS IS THE POST ID: ${this.post.id}`);
+                console.log(`THIS IS THE TOPIC ID: ${this.topic.id}`);
+                console.log(`THIS IS THE POST BODY: ${this.post.body}`);
+                console.log(err);
                 expect(err).toBeNull();
                 expect(body).toContain("Snowball Fighting");
                 done();
@@ -355,9 +361,10 @@ describe("routes : post", () => {
 
         //owner admin new
         describe("GET /topics/:topicId/posts/new", () => {
-
             it("should render a new post form", (done) => {
                 request.get(`${base}/${this.topic.id}/posts/new`, (err, res, body) => {
+                    console.log(`THIS IS THE BODY: ${body}`);
+
                     expect(err).toBeNull();
                     expect(body).toContain("New Post");
                     done();
@@ -382,7 +389,6 @@ describe("routes : post", () => {
 
                         Post.findOne({where: {title: "Watching snow melt"}})
                         .then((post) => {
-                            expect(post).not.toBeNull();
                             expect(post.title).toBe("Watching snow melt");
                             expect(post.body).toBe("Without a doubt my favoriting things to do besides watching paint dry!");
                             expect(post.topic.Id).not.toBeNull();
@@ -503,6 +509,7 @@ describe("routes : post", () => {
                         })
                         .then((post) => {
                             expect(post.title).toBe("Snow peeps");
+                            expect(post.body).toBe("I love watching them melt slowly.")
                             done();
                         });
                     });

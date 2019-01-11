@@ -13,6 +13,10 @@ module.exports = class PostPolicy extends ApplicationPolicy {
         return this.user && this.user.role == "member";
     }
 
+    _isGuest() {
+        return this.user && this.user.role == "guest";
+    }
+
     new() {
         return this._isMember() || this.isAdmin();
     }
