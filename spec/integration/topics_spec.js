@@ -195,15 +195,27 @@ describe("routes : topics", () => {
   describe("member user performing CRUD actions for Topic", () => {
 
     beforeEach((done) => {
-      request.get({
-        url: "http://localhost:3000/auth/fake",
-        form: {
+      User.create({
+          email: "member@example.com",
+          password: "123456",
           role: "member"
-        }
-      });
-      done();
-    }
-  );
+      })
+      .then((user) => {
+          request.get({
+              url: "http://localhost:3000/auth/fake",
+              form: {
+                  role: user.role,
+                  userId: user.id,
+                  email: user.email
+              }
+          },
+          (err, res, body) => {
+              done();
+          }
+        );
+      })            
+  });
+
   
 
     describe("GET /topics", () => {
