@@ -214,13 +214,9 @@ describe("routes : topics", () => {
           }
         );
       })            
-<<<<<<< HEAD
-  });
 
-  
-=======
     });
->>>>>>> Comments
+
 
     describe("GET /topics", () => {
 
