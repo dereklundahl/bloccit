@@ -1,7 +1,7 @@
 const ApplicationPolicy = require("./application");
 
 module.exports = class PostPolicy extends ApplicationPolicy {
-    isAdmin() {
+    _isAdmin() {
         return this.user && this.user.role == "admin";
     }
 
@@ -18,7 +18,9 @@ module.exports = class PostPolicy extends ApplicationPolicy {
     }
 
     new() {
-        return this._isMember() || this.isAdmin();
+        console.log(`THE MEMBER FUNCTION: ${this._isMember()}`);
+        console.log(`THIS IS THE ADMIN FUNCTION ${this._isAdmin()}`);
+        return this._isMember() || this._isAdmin();
     }
 
     create() {
