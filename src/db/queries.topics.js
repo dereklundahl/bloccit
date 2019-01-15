@@ -11,6 +11,8 @@ module.exports = {
 
         .then((topics) => {
             callback(null, topics);
+            console.log(topics);
+
         })
         .catch((err) => {
             callback(err);
