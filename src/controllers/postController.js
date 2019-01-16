@@ -15,7 +15,7 @@ module.exports = {
 
   create(req, res, next){
     const authorized = new Authorizer(req.user).create();
-
+    console.log(`THIS IS THE USER: ${JSON.stringify(req.user)}`);
     if (authorized) {
       let newPost = {
         title: req.body.title,
