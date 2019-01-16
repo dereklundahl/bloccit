@@ -115,6 +115,21 @@ describe("Vote", () => {
                 done();
             })
         });
+
+        it("should not create a vote with a value of anyting other than 1 or -1", (done) => {
+            Vote.create({
+                value: 2,
+                postId: this.post.id,
+                userId: this.user.id
+            })
+            .then((vote) => {
+                done();
+            })
+            .catch((err) => {
+                expect(err.message).toContain("Validation isIn on value failed");
+                done();
+            });
+        });
     }); //end create
 
     describe("#setUser()", () => {
@@ -230,8 +245,87 @@ describe("Vote", () => {
                 done();
             });
         });
-    });
+    }); //end get Post
 
+    //testing for hasUpvoteFor()
+    describe("#hasUpvoteFor()", () => {
+        it("should return true if the user with the matching userId has an upvote for a post", (done) => {
+            Vote.create({
+                value: 1,
+                postId: this.post.id,
+                userId: this.user.id
+            })
+            .then((vote) => {
+                this.vote = vote;
 
+                Post.create({
+                    title: "Funny Title",
+                    body: "This is a funny body",
+                    topicId: this.topic.id,
+                    userId: this.user.id
+                })
+                .then((newPost) => {
+                    expect(this.vote.postId).not.toBe(newPost.id);
+
+                    this.vote.setPost(newPost)
+                    .then((vote) => {
+                        expect(vote.postId).toBe(newPost.id);
+                        expect(this.vote.userId).toBe(newPost.userId);
+
+                        newPost.hasUpvoteFor(newPost.userId)
+                        .then((votes) => {
+                            expect(votes.length > 0).toBe(true);
+                            done();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            done();
+                        })
+                    });
+                });
+            });
+        });
+    }); //end hasUpvoteFor()
+
+    //testing for hasDownvoteFor()
+    describe("#hasDownvoteFor()", () => {
+        it("should return true if the user with the matching userId has a downvote for a post", (done) => {
+            Vote.create({
+                value: -1,
+                postId: this.post.id,
+                userId: this.user.id
+            })
+            .then((vote) => {
+                this.vote = vote;
+
+                Post.create({
+                    title: "Another funny Post title",
+                    body: "Funny body",
+                    topicId: this.topic.id,
+                    userId: this.user.id
+                })
+                .then((newPost) => {
+                    expect(this.vote.postId).not.toBe(newPost.id);
+
+                    this.vote.setPost(newPost)
+                    .then((vote) => {
+                        expect(vote.postId).toBe(newPost.id);
+                        expect(this.vote.userId).toBe(newPost.userId);
+
+                        newPost.hasDownvoteFor(newPost.userId)
+                        .then((votes) => {
+                            expect(votes.length > 0).toBe(true);
+                            done();
+                        }) 
+                        .catch((err) => {
+                            console.log(err);
+                            done();
+                        })
+                        
+                    });
+                });
+            });
+        });
+    }); //end describe hasDownvoteFor()
 
 });
