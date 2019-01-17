@@ -13,6 +13,7 @@
             <div style="display: flex; align-items:center;">
               <% if(currentUser) { %>
                 <% include ../votes/voting.ejs %>
+                <% include ../favorites/favoriting.ejs %>
               <% } %>
               <h1><%= post.title %></h1>
             </div>
