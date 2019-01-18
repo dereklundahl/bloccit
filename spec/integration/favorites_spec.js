@@ -124,6 +124,7 @@ describe("routes : favorites", () => {
                 };
                 request.post(options,
                     (err, res, body) => {
+                        this.post.getFavorites()
                         Favorite.findOne({
                             where: {
                                 userId: this.user.id,
@@ -132,7 +133,6 @@ describe("routes : favorites", () => {
                         })
                         .then((favorite) => {
                             expect(favorite).not.toBeNull();
-                            console.log(`FAVORITE!: ${favorite.userId}`);
                             expect(favorite.userId).toBe(this.user.id);
                             expect(favorite.postId).toBe(this.post.id);
                             done();
@@ -158,7 +158,6 @@ describe("routes : favorites", () => {
                     this.post.getFavorites()
                     .then((favorites) => {
                         const favorite = favorites[0];
-                        console.log(`THIS IS THE FAVORITE: ${favorite}`);
                         favCountBeforeDelete = favorites.length;
 
                         request.post(`${base}${this.topic.id}/posts/${this.post.id}/favorites/${favorite.id}/destroy`,
